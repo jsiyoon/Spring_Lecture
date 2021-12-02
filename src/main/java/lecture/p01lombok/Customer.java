@@ -12,6 +12,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Customer {
+	
 	private int id;
 	private String name;
 	private String city;
