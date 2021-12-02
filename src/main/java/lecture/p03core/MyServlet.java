@@ -17,5 +17,6 @@ public class MyServlet {
 		//4. add attribute
 		
 		//5. forward/ redirect
+		
 	}
 }
