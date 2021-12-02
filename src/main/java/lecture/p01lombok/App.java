@@ -4,6 +4,7 @@ import lombok.extern.java.Log;
 
 @Log
 public class App {
+	
 	public static void main(String[] args) {
 		Customer c1 = new Customer();
 		
