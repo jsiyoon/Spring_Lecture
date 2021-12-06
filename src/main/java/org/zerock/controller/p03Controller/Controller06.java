@@ -66,7 +66,7 @@ public class Controller06 {
 	
 	@RequestMapping("/met08")
 	public String method08(@ModelAttribute("name") String name, @ModelAttribute("city") String city) {
-		return "/cont06/met07";
+		return "/cont06/met07"; //07로 forward
 	}
 	
 	@RequestMapping("/met09")
@@ -76,7 +76,7 @@ public class Controller06 {
 	
 	@RequestMapping("/met10")
 	public String method10(@ModelAttribute("bean") Bean01 bean) {
-		return "/cont06/met09";
+		return "/cont06/met09"; //09로 forward
 	}
 	
 	@RequestMapping("/met11")
@@ -86,7 +86,7 @@ public class Controller06 {
 	
 	@RequestMapping("/met12")
 	public String method12(Bean01 bean) {
-		return "/cont06/met11";
+		return "/cont06/met11"; //11로 forward
 	}
 	
 	// /cont06/met13?city=seoul&address=gangnam
