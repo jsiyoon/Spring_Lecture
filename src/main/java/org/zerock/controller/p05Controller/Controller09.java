@@ -6,6 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.zerock.controller.p05Controller.bean.Bean09;
+import org.zerock.controller.p05Controller.bean.Bean10;
+import org.zerock.controller.p05Controller.bean.Bean13;
+import org.zerock.controller.p05Controller.bean.Bean14;
+import org.zerock.controller.p05Controller.bean.Bean17;
 import org.zerock.mapper.p05mapper.TimeMapper;
 
 import lombok.Setter;
@@ -58,6 +63,8 @@ public class Controller09 {
 		System.out.println(name);
 	}
 	
+	
+	//여러 쿼리 출력
 	@RequestMapping("/met07")
 	public void method07() {
 		List<String> names = mapper.getCustomerNames();
@@ -69,5 +76,70 @@ public class Controller09 {
 	public void method08() {
 		List<String> names = mapper.getLastNames();
 		System.out.println(names);
+	}
+	
+	@RequestMapping("/met09")
+	public void method09() {
+		Bean09 name = mapper.getEmployeeName();
+		System.out.println(name);
+	}
+	
+	@RequestMapping("/met10")
+	public void method10() {
+		Bean10 name = mapper.getCustomer();
+		System.out.println(name);
+	}
+	
+	@RequestMapping("/met11")
+	public void method11() {
+		System.out.println(mapper.getCustomerInfo());
+	}
+	
+	@RequestMapping("/met12")
+	public void method12() {
+		System.out.println(mapper.getEmployeeInfo());
+	}
+	
+	@RequestMapping("/met13")
+	public void method13() {
+		System.out.println(mapper.getEmployeeById(3));
+	}
+	
+	@RequestMapping("/met14")
+	public void method14() {
+		System.out.println(mapper.getCustomerById(3));
+	}
+	
+	@RequestMapping("/met15")
+	public void method15() {
+		List<Bean14> list = mapper.getCustomers();
+		
+		for(Bean14 item : list) {
+			System.out.println(item);
+		}
+	}
+	
+	@RequestMapping("/met16")
+	public void method16() {
+		List<Bean13> list = mapper.getEmployees();
+		for(Bean13 item : list) {
+			System.out.println(item);
+		}
+	}
+	
+	@RequestMapping("/met17")
+	public void method17( ) {
+		List<Bean17> list = mapper.getProducts();
+		for(Bean17 item : list) {
+			System.out.println(item);
+		}
+	}
+	
+	@RequestMapping("/met18")
+	public void method18() {
+		List<Bean17> list = mapper.getProductsInfo();
+		for (Bean17 item : list) {
+			System.out.println(item);
+		}
 	}
 }
