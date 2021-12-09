@@ -1,0 +1,37 @@
+package org.zerock.mapper.project1;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zerock.domain.project1.BoardVO;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+public class BoardMapperTest {
+
+	@Autowired
+	public BoardMapper mapper;
+	
+	@Test
+	public void mapperTest() {
+		assertNotNull(mapper);
+	}
+	
+	@Test
+	public void insertTest() {
+		BoardVO vo = new BoardVO();
+		vo.setTitle("test용 제목");
+		vo.setContent("test용 본문");
+		vo.setWriter("tester");
+		
+		int cnt = mapper.insert(vo);
+		
+		assertEquals(1, cnt);
+	}
+
+}
