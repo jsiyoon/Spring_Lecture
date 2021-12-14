@@ -6,19 +6,20 @@
 <mapper namespace="org.zerock.mapper.project1.MemberMapper">
 
 	<insert id="insert">
-	INSERT INTO Member(id, password, email, address)
-	VALUES (#{id}, #{password}, #{email}, #{address})
+	INSERT INTO Member(id, nickName, password, email, address)
+	VALUES (#{id}, #{nickName}, #{password}, #{email}, #{address})
 	</insert>
 	
 	<select id="select" resultType="org.zerock.domain.project1.MemberVO">
-	SELECT id, password, email, address, inserted 
+	SELECT id, nickName, password, email, address, inserted 
 	FROM Member 
 	WHERE id = #{id}
 	</select>
 	
 	<update id="update">
 	UPDATE Member
-	SET password = #{password},
+	SET nickName = #{nickName},
+		password = #{password},
 		email = #{email},
 		address = #{address}
 	WHERE 
@@ -30,7 +31,7 @@
 	</delete>
 	
 	<select id="list" resultType="org.zerock.domain.project1.MemberVO">
-	SELECT id, password, email, address, inserted
+	SELECT id, nickName, password, email, address, inserted
 	FROM Member
 	ORDER BY inserted DESC; 
 	</select>
