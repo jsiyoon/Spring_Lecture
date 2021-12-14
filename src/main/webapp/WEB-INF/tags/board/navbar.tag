@@ -8,6 +8,7 @@
 <c:url value="/member/login" var="loginUrl"></c:url>
 <c:url value="/member/logout" var="logoutUrl"></c:url>
 <c:url value="/member/info" var="memberInfoUrl"></c:url>
+<c:url value="/member/list" var="memberListUrl"></c:url>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<ul class="navbar-nav mr-auto">
@@ -19,6 +20,7 @@
 		</c:if>
 		<c:if test="${not empty sessionScope.loggedInMember }">
 			<li class="nav-item active"><a href="${memberInfoUrl }" class="nav-link">회원정보보기</a></li>
+			<li class="nav-item active"><a href="${memberListUrl }" class="nav-link">회원목록보기</a></li>
 			<li class="nav-item active"><a href="${logoutUrl }" class="nav-link">로그아웃</a></li>
 		</c:if>
 	</ul>
