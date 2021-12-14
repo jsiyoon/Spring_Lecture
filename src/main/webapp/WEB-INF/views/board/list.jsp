@@ -33,7 +33,7 @@
 							<tr>
 								<td>${board.id }</td>
 								<td><a href="get?id=${board.id }"> ${board.title } </a></td>
-								<td>${board.writer }</td>
+								<td>${board.nickName }</td>
 								<td>${board.inserted }</td>
 							</tr>
 						</c:forEach>
