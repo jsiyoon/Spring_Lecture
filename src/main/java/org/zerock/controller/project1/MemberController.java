@@ -1,5 +1,7 @@
 package org.zerock.controller.project1;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,12 +88,13 @@ public class MemberController {
 	
 	@GetMapping("/info")
 	public String info(HttpSession session) {
-		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
-		
-		//로그아웃 상태
-		if(vo == null) {
-			return "redirect:/member/login";
-		}
+		/*필터로 처리*/
+//		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
+//		
+//		//로그아웃 상태
+//		if(vo == null) {
+//			return "redirect:/member/login";
+//		}
 		
 		//로그인 상태일때
 		return null;
@@ -99,12 +102,13 @@ public class MemberController {
 	
 	@PostMapping("/info")
 	public String info(MemberVO member, HttpSession session, RedirectAttributes rttr) {
-		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
-		
-		//로그아웃 상태
-		if(vo == null) {
-			return "redirect:/member/login";
-		}
+		/*필터로 처리*/
+//		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
+//		
+//		//로그아웃 상태
+//		if(vo == null) {
+//			return "redirect:/member/login";
+//		}
 		
 		//로그인된 상태
 		boolean ok = service.modify(member);
@@ -121,17 +125,36 @@ public class MemberController {
 	
 	@PostMapping("/remove")
 	public String remove(String id, HttpSession session, RedirectAttributes rttr) {
-		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
-		
-		//로그아웃 상태
-		if(vo == null) {
-			return "redirect:/member/login";
-		}
+		/*필터로 처리*/
+//		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
+//		
+//		//로그아웃 상태
+//		if(vo == null) {
+//			return "redirect:/member/login";
+//		}
 		
 		//로그인된 상태
 		service.remove(id);
 		session.invalidate();
 		rttr.addFlashAttribute("result", "회원 탈퇴하였습니다");
 		return "redirect:/board/list";
+	}
+	
+	@GetMapping("/list")
+	public String list(Model model, HttpSession session) {
+		/*필터로 처리함*/
+//		//로그인상태가 아니면 로그인 화면으로 Redirect
+//		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
+//		
+//		//로그아웃 상태
+//		if(vo == null) {
+//			return "redirect:/member/login";
+//		}
+		
+		List<MemberVO> list = service.getList();
+		
+		model.addAttribute("memberList", list);
+		
+		return null;
 	}
 }
