@@ -31,11 +31,13 @@
 					</div>
 					<div class="form-group">
 						<label for="input3">작성자</label>
-						<input type="text" class="form-control" id="input3" readonly value="$board.writer">
+						<input type="text" class="form-control" id="input3" readonly value="${board.nickName }">
 					</div>
+					<c:if test="${sessionScope.loggedInMember.id eq board.writer }">
 					<a href="modify?id=${board.id }" class="btn btn-outline-secondary"> 
 						수정/삭제 <!-- <i class="far fa-edit"></i> -->
 					</a>
+					</c:if>
 				</div>
 			</div>
 		</div>
