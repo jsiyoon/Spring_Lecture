@@ -29,8 +29,9 @@
 				</div>
 				<div class="form-group">
 					<label for="input3">작성자</label>
-					<input type="text" class="form-control" id="input3" name="writer">
+					<input type="text" class="form-control" id="input3" value="${sessionScope.loggedInMember.nickName }" readonly>
 				</div>
+				<input type="hidden" name="writer" value="${sessionScope.loggedInMember.id }">
 				<button class="btn btn-outline-primary" type="submit">등록</button>
 			</form>
 		</div>
