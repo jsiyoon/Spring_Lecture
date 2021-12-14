@@ -25,12 +25,14 @@ public class MemberMapperTest {
 	@Test
 	public void mapperTest() {
 		String id = "member" + (new Date()).getTime();
+		String nickName = id;
 		String password = "newpassword" + (new Date()).getTime();
 		String address = "jeju" + (new Date()).getTime();
 		String email = id + "@gmail.com";
 		
 		MemberVO vo = new MemberVO();
 		vo.setId(id);
+		vo.setNickName(nickName);
 		vo.setPassword(password);
 		vo.setAddress(address);
 		vo.setEmail(email);
@@ -43,15 +45,18 @@ public class MemberMapperTest {
 		MemberVO s = mapper.select(id);
 		
 		assertEquals(id, s.getId());
+		assertEquals(nickName, s.getNickName());
 		assertEquals(password, s.getPassword());
 		assertEquals(address, s.getAddress());
 		assertEquals(email, s.getEmail());
 		
 		//update test
+		String newNickName = "newNickName";
 		String newPassword = "newPassword";
 		String newAddress = "newAddress";
 		LocalDateTime inserted = s.getInserted();
 		
+		s.setNickName(newNickName);
 		s.setPassword(newPassword);
 		s.setAddress(newAddress);
 		
@@ -60,6 +65,7 @@ public class MemberMapperTest {
 		
 		MemberVO t = mapper.select(id);
 		assertEquals(id, t.getId());
+		assertEquals(newNickName, t.getNickName());
 		assertEquals(newPassword, t.getPassword());
 		assertEquals(newAddress, t.getAddress());
 		assertEquals(email, t.getEmail());
@@ -70,6 +76,7 @@ public class MemberMapperTest {
 		int size1 = list1.size();
 		for(MemberVO item :list1) {
 			assertNotNull(item.getId());
+			assertNotNull(item.getNickName());
 			assertNotNull(item.getAddress());
 			assertNotNull(item.getPassword());
 			assertNotNull(item.getEmail());
