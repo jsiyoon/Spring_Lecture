@@ -32,16 +32,20 @@
 					<input type="text" class="form-control" id="input1" required name="id" value="${member.id }">
 				</div>
 				<div class="form-group">
-					<label for="input2">패스워드</label>
-					<input type="text" class="form-control" id="input2" required name="password" value="${member.password }">
+					<label for="input2">닉네임</label>
+					<input type="text" class="form-control" id="input2" required name="nickName" value="${member.nickName }">
 				</div>
 				<div class="form-group">
-					<label for="input3">이메일</label>
-					<input type="email" class="form-control" id="input3" required name="email" value="${member.email }">
+					<label for="input3">패스워드</label>
+					<input type="text" class="form-control" id="input3" required name="password" value="${member.password }">
 				</div>
 				<div class="form-group">
-					<label for="input4">주소</label>
-					<input type="text" class="form-control" id="input4" required name="address" value="${member.address }">
+					<label for="input4">이메일</label>
+					<input type="email" class="form-control" id="input4" required name="email" value="${member.email }">
+				</div>
+				<div class="form-group">
+					<label for="input5">주소</label>
+					<input type="text" class="form-control" id="input5" required name="address" value="${member.address }">
 				</div>
 				<button class="btn btn-outline-primary">가입</button>
 			</form>
