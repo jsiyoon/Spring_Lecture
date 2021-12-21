@@ -16,6 +16,12 @@
 	WHERE id = #{id}
 	</select>
 	
+	<select id="selectByNickName" resultType="org.zerock.domain.project1.MemberVO">
+	SELECT id, nickName, password, email, address, inserted 
+	FROM Member 
+	WHERE nickName = #{nickName}
+	</select>
+	
 	<update id="update">
 	UPDATE Member
 	SET nickName = #{nickName},
@@ -38,6 +44,22 @@
 			LEFT JOIN 
 		Board b ON m.id = b.writer
 	GROUP BY m.id
-	ORDER BY inserted DESC; 
+	ORDER BY inserted DESC
+	</select>
+	
+	<select id="listPage" resultType="org.zerock.domain.project1.MemberVO">
+	SELECT 
+		m.id, m.nickName, m.password, m.email, m.address, m.inserted, COUNT(b.id) AS numberOfBoard
+	FROM 
+		Member m 
+			LEFT JOIN 
+		Board b ON m.id = b.writer
+	GROUP BY m.id
+	ORDER BY inserted DESC
+	LIMIT #{from}, #{items}
+	</select>
+	
+	<select id="getCountRows" resultType="int">
+	SELECT COUNT(*) FROM Member
 	</select>
 </mapper>
