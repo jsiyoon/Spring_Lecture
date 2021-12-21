@@ -2,9 +2,12 @@ package org.zerock.service.project1;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.domain.project1.MemberVO;
+import org.zerock.domain.project1.PageInfoVO;
 import org.zerock.mapper.project1.MemberMapper;
 
 import lombok.Setter;
@@ -40,4 +43,47 @@ public class MemberService {
 	public List<MemberVO> getList(){
 		return mapper.list();
 	}
+
+	public List<MemberVO> getList(Integer page, Integer numberPerPage) {
+		
+		Integer from = (page-1) * numberPerPage;
+		
+		return mapper.listPage(from, numberPerPage);
+	}
+
+	public PageInfoVO getPageInfo(Integer page, Integer numberPerPage) {
+		Integer countRows = mapper.getCountRows(); //총 레코드수
+		Integer lastPage = (countRows -1) / numberPerPage + 1; // 마지막 페이지 번호
+		Integer leftPageNumber = page - 5; //가장왼쪽 페이지번호
+		leftPageNumber = Math.max(1, leftPageNumber);
+		
+		Integer rightPageNumber = leftPageNumber + 9; //가장오른쪽 페이지 번호
+		rightPageNumber = Math.min(rightPageNumber, lastPage);
+		
+		Boolean hasPrevButton = page != 1; //이전페이지 존재유무
+		Boolean hasNextButton = page != lastPage; //다음페이지 존재유무
+		
+		PageInfoVO pageInfo = new PageInfoVO();
+		
+		pageInfo.setLastPage(lastPage);
+		pageInfo.setCountRows(countRows);
+		pageInfo.setCurrentPage(page);
+		pageInfo.setLeftPageNumber(leftPageNumber);
+		pageInfo.setRightPageNumber(rightPageNumber);
+		pageInfo.setHasPrevButton(hasPrevButton);
+		pageInfo.setHasNextButton(hasNextButton);
+		
+		return pageInfo;
+	}
+
+	public boolean hasId(String id) {
+		MemberVO member = mapper.select(id);
+		return member != null;
+	}
+
+	public boolean hasNickName(String nickName) {
+		MemberVO member = mapper.selectByNickName(nickName);
+		return member != null;
+	}
+
 }
