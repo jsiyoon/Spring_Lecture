@@ -2,6 +2,9 @@ package org.zerock.mapper.project1;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.annotations.Param;
 import org.zerock.domain.project1.MemberVO;
 
 public interface MemberMapper {
@@ -15,4 +18,12 @@ public interface MemberMapper {
 	public int delete(String id);
 	
 	public List<MemberVO> list();
+
+	public List<MemberVO> listPage(@Param("from") Integer from, @Param("items") Integer numberPerPage);
+
+	public Integer getCountRows();
+
+	public MemberVO selectByNickName(String nickName);
+
+	
 }
