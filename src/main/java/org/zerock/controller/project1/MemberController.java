@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.project1.MemberVO;
+import org.zerock.domain.project1.PageInfoVO;
 import org.zerock.service.project1.MemberService;
 
 import lombok.Setter;
@@ -23,6 +26,45 @@ public class MemberController {
 
 	@Setter(onMethod_ = @Autowired)
 	private MemberService service;
+	
+	
+	@RequestMapping("/idcheck")
+	@ResponseBody
+	public String idcheck(String id) {
+		boolean has = service.hasId(id);
+		
+		if(has) {
+			return "unable";
+		}else {
+			return "able";
+			
+		}
+	}
+	
+	@RequestMapping("/nickNameCheck")
+	@ResponseBody
+	public String nickNameCheck(String nickName) {
+		boolean has = service.hasNickName(nickName);
+		
+		if(has) {
+			return "unable";
+		}else {
+			return "able";
+		}
+	}
+	
+	@RequestMapping("/nickNamecheck")
+	@ResponseBody
+	public String nickNamecheck(String nickName) {
+		boolean has = service.hasNickName(nickName);
+		
+		if(has) {
+			return "unable";
+		}else {
+			return "able";
+			
+		}
+	}
 	
 	@GetMapping("/signup")
 	public void signup() {
@@ -80,6 +122,7 @@ public class MemberController {
 	
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
+		
 		//세션 invalidate
 		session.invalidate();
 		// /board/list redirect
@@ -141,7 +184,7 @@ public class MemberController {
 	}
 	
 	@GetMapping("/list")
-	public String list(Model model, HttpSession session) {
+	public String list(@RequestParam(defaultValue="1") Integer page ,Model model) {
 		/*필터로 처리함*/
 //		//로그인상태가 아니면 로그인 화면으로 Redirect
 //		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
@@ -151,9 +194,14 @@ public class MemberController {
 //			return "redirect:/member/login";
 //		}
 		
-		List<MemberVO> list = service.getList();
+		System.out.println(page);
+		Integer numberPerPage = 10;
+		
+		List<MemberVO> list = service.getList(page, numberPerPage);
+		PageInfoVO pageInfo = service.getPageInfo(page,numberPerPage);
 		
 		model.addAttribute("memberList", list);
+		model.addAttribute("pageInfo", pageInfo);
 		
 		return null;
 	}
