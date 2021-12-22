@@ -21,7 +21,15 @@
 			<li class="nav-item active"><a href="${registerUrl }" class="nav-link">글쓰기</a></li>
 			<li class="nav-item active"><a href="${memberInfoUrl }" class="nav-link">회원정보보기</a></li>
 			<li class="nav-item active"><a href="${memberListUrl }" class="nav-link">회원목록보기</a></li>
-			<li class="nav-item active"><a href="${logoutUrl }" class="nav-link">로그아웃</a></li>
+			<li class="nav-item active" id="logoutButton"><a onclick="return logout()" href="${logoutUrl }" class="nav-link">로그아웃</a></li>
 		</c:if>
 	</ul>
 </nav>
+
+<script>
+function logout(){
+	if(!confirm("로그아웃 하시겠습니까?")){
+		return false;	
+	}
+}
+</script>
