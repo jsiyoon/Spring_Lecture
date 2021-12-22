@@ -10,6 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/css/icon/css/all.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -18,13 +19,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h1>게시물 목록</h1>
+				<h1 style="text-align: center;">게시물 목록</h1>
 				<table class="table">
 					<thead>
 						<tr>
 							<th><i class="fab fa-slack-hash"></i></th>
 							<th>제목</th>
-							<th>작성자</th>
+							<th><i class="fas fa-user"></i></th>
 							<th>작성일</th>
 						</tr>
 					</thead>
@@ -32,9 +33,16 @@
 						<c:forEach items="${list }" var="board">
 							<tr>
 								<td>${board.id }</td>
-								<td><a href="get?id=${board.id }"> ${board.title } </a></td>
-								<td>${board.nickName }</td>
-								<td>${board.inserted }</td>
+								<td>
+									<a href="get?id=${board.id }">
+										<c:out value="${board.title }" />
+									</a>
+									<c:if test="${board.replyCount > 0 }">
+										<i class="far fa-comments"></i> ${board.replyCount }
+									</c:if>
+								</td>
+								<td><c:out value="${board.nickName }" /></td>
+								<td>${board.customInserted }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -43,6 +51,42 @@
 		</div>
 	</div>
 
+	<!-- pagination -->
+	<nav aria-label="Page navigation example">
+	  <ul class="pagination justify-content-center">
+	  	<c:if test="${pageInfo.hasPrevButton }">
+	  		<c:url value="/board/list" var="pageLink">
+	    		<c:param name="page" value="${pageInfo.leftPageNumber - 1 }"></c:param>
+	    	</c:url>
+		    <li class="page-item">
+		      <a class="page-link" href="${pageLink }" aria-label="Previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+	  	</c:if>
+	  
+	    <c:forEach begin="${pageInfo.leftPageNumber }" end="${pageInfo.rightPageNumber }" var="pageNumber">
+	    	<c:url value="/board/list" var="pageLink">
+	    		<c:param name="page" value="${pageNumber }"></c:param>
+	    	</c:url>
+		    <li class="page-item ${pageInfo.currentPage == pageNumber ? 'active' : '' }">
+		    	<a class="page-link" href="${pageLink }">${pageNumber }</a>
+		    </li>
+	    </c:forEach>
+	    
+	    <c:if test="${pageInfo.hasNextButton }">
+	    	<c:url value="/board/list" var="pageLink">
+	    		<c:param name="page" value="${pageInfo.rightPageNumber + 1 }"></c:param>
+	    	</c:url>
+		    <li class="page-item">
+		      <a class="page-link" href="${pageLink }" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+	    </c:if>
+	  </ul>
+	</nav>
+	
 	<!-- modal -->
 	<c:if test="${not empty result }">
 		<div class="modal" tabindex="-1" id="modal1">
@@ -64,7 +108,6 @@
 			</div>
 		</div>
 	</c:if>
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 	<script>
 		$(document).ready(function() {
@@ -73,6 +116,8 @@
 				//modal이 여러번 뜨는 것을 history로 방지.
 				history.replaceState({}, null);
 			}
+			
+			
 		});
 	</script>
 </body>
