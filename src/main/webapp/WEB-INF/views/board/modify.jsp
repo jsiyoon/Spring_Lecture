@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/css/icon/css/all.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -17,7 +18,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h1>게시물 수정</h1>
+				<h1 style="text-align: center;">게시물 수정</h1>
 				<form id="modifyForm" method="post">
 					<input type="hidden" name="id" value="${board.id }">
 					<div class="form-group">
@@ -37,18 +38,21 @@
 			</div>
 		</div>
 	</div>
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
 	<script>
 		$(document).ready(function() {
 			$("#removeSubmitButton").click(function(e) {
 				e.preventDefault(); //기본동작진행하지 않도록 함.
-				$("#modifyForm").attr("action", "remove").submit();
+				if(confirm("삭제 하시겠습니까?")){
+					$("#modifyForm").attr("action", "remove").submit();
+				}
 			});
 			$("#modifySubmitButton").click(function(e) {
 				e.preventDefault();
-				$("#modifyForm").attr("action", "modify").submit();
+				if(confirm("수정하시겠습니까?")){
+					$("#modifyForm").attr("action", "modify").submit();
+				}
 			});
 		});
 	</script>
