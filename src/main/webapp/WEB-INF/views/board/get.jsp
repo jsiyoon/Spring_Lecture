@@ -148,12 +148,20 @@ $(document).ready(function(){
 						<!-- <input type="text" class="form-control" id="input2" readonly=""> -->
 						<textarea class="form-control" id="input2" readonly>${board.content }</textarea>
 					</div>
+
+					<c:forEach items="${fileNames }" var="fileName">
+						<div class="row">
+							<div class="col">
+								<img class="img-fluid" src="/static/board/${board.id }/${fileName }" alt="${fileName }">
+							</div>
+						</div>
+					</c:forEach>
+					
 					<div class="form-group">
 						<label for="input3">작성자</label> <input type="text" class="form-control" id="input3" readonly value="${board.nickName }">
 					</div>
 					<c:if test="${sessionScope.loggedInMember.id eq board.writer }">
-						<a href="modify?id=${board.id }" class="btn btn-outline-secondary"> 수정/삭제 <!-- <i class="far fa-edit"></i> -->
-						</a>
+						<a href="modify?id=${board.id }" class="btn btn-outline-secondary"> 수정/삭제 <!-- <i class="far fa-edit"></i> --></a>
 					</c:if>
 				</div>
 			</div>
@@ -166,7 +174,9 @@ $(document).ready(function(){
 			<div class="row">
 				<div class="col">
 					<hr>
-					<h3>comment <i class="far fa-comments"></i></h3>
+					<h3>
+						comment <i class="far fa-comments"></i>
+					</h3>
 					<div class="input-group">
 						<textarea id="replyTextarea" class="form-control"></textarea>
 						<div class="input-group-append">
