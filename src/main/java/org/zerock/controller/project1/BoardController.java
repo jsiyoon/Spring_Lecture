@@ -1,8 +1,8 @@
 package org.zerock.controller.project1;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.project1.BoardVO;
 import org.zerock.domain.project1.PageInfoVO;
@@ -25,10 +26,9 @@ public class BoardController {
 	@Setter(onMethod_ = @Autowired)
 	private BoardService service;
 	
-	@RequestMapping("/list")
+	@GetMapping("/list")
 	public void list(@RequestParam(value="page", defaultValue = "1") Integer page, Model model) {
 		
-		System.out.println(page);
 		Integer numberPerPage = 10; //한 페이지 row 수
 		
 		//3.business logic
@@ -50,16 +50,23 @@ public class BoardController {
 	public void get(@RequestParam("id") Integer id, Model model) {
 		BoardVO board = service.get(id);
 		
+		String[] fileNames = service.getFileNamesByBoardId(id);
+		
 		model.addAttribute("board", board);
+		model.addAttribute("fileNames", fileNames);
 	}
 	
 	@PostMapping("/modify")
-	public String modify(BoardVO board, RedirectAttributes rttr) {
+	public String modify(BoardVO board, String[] removeFile, MultipartFile[] files, RedirectAttributes rttr) {
 		
-		if(service.modify(board)) {
-			rttr.addFlashAttribute("result", board.getId() + "번 게시글에 수정되었습니다.");
+		try {
+			if(service.modify(board, removeFile, files)) {
+				rttr.addFlashAttribute("result", board.getId() + "번 게시글이 수정되었습니다.");
+			}
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+			rttr.addFlashAttribute("result", board.getId() + "번 게시글 수정 중 문제가 발생하였습니다.");
 		}
-		
 		//게시물 조회로 redirect
 		/*
 		  rttr.addAttribute("id",board.getId());
@@ -77,19 +84,23 @@ public class BoardController {
 	
 	//새로 테이블에 등록
 	@PostMapping("/register")
-	public String register(BoardVO board, RedirectAttributes rttr, HttpServletRequest req) {
+	public String register(BoardVO board, MultipartFile[] files, RedirectAttributes rttr) {
 		
 		//3.business logic
-		service.register(board);
-		
-		//4.add attribute
-		rttr.addFlashAttribute("result", board.getId() + "번 게시글이 등록되었습니다.");
+		try {
+			service.register(board, files);
+			//4.add attribute
+			rttr.addFlashAttribute("result", board.getId() + "번 게시글이 등록되었습니다.");
+		} catch (IllegalStateException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			rttr.addFlashAttribute("result", "게시물 등록 중 오류가 발생하였습니다.");
+		}
 		
 		//5.forward/redirect
 		//책:목록으로 redirect
 		return "redirect:/board/list";
 	}
-	
 	
 	//테이블 컬럼 삭제
 	@PostMapping("/remove")
