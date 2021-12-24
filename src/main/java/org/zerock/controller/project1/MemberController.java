@@ -184,7 +184,7 @@ public class MemberController {
 	}
 	
 	@GetMapping("/list")
-	public String list(@RequestParam(defaultValue="1") Integer page ,Model model) {
+	public String list(@RequestParam(defaultValue="1") Integer page , Model model) {
 		/*필터로 처리함*/
 //		//로그인상태가 아니면 로그인 화면으로 Redirect
 //		MemberVO vo = (MemberVO) session.getAttribute("loggedInMember");
@@ -193,12 +193,10 @@ public class MemberController {
 //		if(vo == null) {
 //			return "redirect:/member/login";
 //		}
-		
-		System.out.println(page);
 		Integer numberPerPage = 10;
 		
 		List<MemberVO> list = service.getList(page, numberPerPage);
-		PageInfoVO pageInfo = service.getPageInfo(page,numberPerPage);
+		PageInfoVO pageInfo = service.getPageInfo(page, numberPerPage);
 		
 		model.addAttribute("memberList", list);
 		model.addAttribute("pageInfo", pageInfo);
