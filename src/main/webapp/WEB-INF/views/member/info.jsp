@@ -52,7 +52,7 @@
 				</div>
 				
 				<button class="btn btn-outline-secondary" id="modifyButton">수정</button>
-				<button class="btn btn-outline-danger" id="removeButton">삭제</button>
+				<button class="btn btn-outline-danger" id="removeButton">탈퇴</button>
 			</form>
 		</div>
 	</div>
@@ -174,15 +174,18 @@
 			
 			if(passwordValue === passwordConfirmValue){
 				passwordCheck = true;
-				// modifyButton.removeAttr("disabled");
+				//modifyButton.removeAttr("disabled");
+				removeButton.removeAttr("disabled");
 			}else{
 				passwordCheck = false;
-				// modifyButton.attr("disabled", true);
+				//modifyButton.attr("disabled", true);
+				removeButton.arre("disabled", true);
 			}
 			enableSubmit();
 		}
 		
 		modifyButton.attr("disabled", true); //수정버튼 비활성화
+		removeButton.attr("disabled", true); //탈퇴버튼 비활성화
 		
 		passwordInput.keyup(confirmFunction);
 		passwordConfirmInput.keyup(confirmFunction);
