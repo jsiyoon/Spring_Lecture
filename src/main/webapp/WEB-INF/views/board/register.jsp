@@ -19,7 +19,7 @@
 	<div class="row">
 		<div class="col">
 			<h1 style="text-align: center;">게시물 작성</h1>
-			<form method="post">
+			<form method="post" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="input1">제목</label>
 					<input type="text" class="form-control" id="input1" name="title">
@@ -28,6 +28,12 @@
 					<label for="input2">내용</label>
 					<textarea class="form-control" id="input2" name="content"></textarea>
 				</div>
+				
+				<div class="form-group">
+					<label for="input4">이미지 파일</label>
+					<input type="file" class="form-control-file" id="input4" name="files" accept="image/*" multiple>
+				</div>
+				
 				<div class="form-group">
 					<label for="input3">작성자</label>
 					<input type="text" class="form-control" id="input3" value="${sessionScope.loggedInMember.nickName }" readonly>
