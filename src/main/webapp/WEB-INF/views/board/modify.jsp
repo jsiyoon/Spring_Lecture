@@ -19,15 +19,38 @@
 		<div class="row">
 			<div class="col">
 				<h1 style="text-align: center;">게시물 수정</h1>
-				<form id="modifyForm" method="post">
+				<form id="modifyForm" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="id" value="${board.id }">
 					<div class="form-group">
-						<label for="input1">제목</label> <input type="text" class="form-control" id="input1" name="title" value="${board.title }">
+						<label for="input1">제목</label>
+						<input type="text" class="form-control" value="${board.title }" id="input1" name="title">
 					</div>
 					<div class="form-group">
 						<label for="input2">내용</label>
 						<textarea class="form-control" id="input2" name="content">${board.content}</textarea>
 					</div>
+					
+					<div class="row">
+						<div id="col-12">
+							<label for="">삭제할 파일 선택</label>
+						</div>
+					</div>
+					<c:forEach items="${fileNames }" var="fileName">
+						<div class="row">
+							<div id="col-1 d-flex justify-content-center align-items-center">
+								<input class="form-check-input" type="checkbox" name="removeFile" value="${fileName }">
+							</div>
+							<div class="col-11">
+								<img class="img-fluid" src="/static/board/${board.id }/${fileName }" alt="${fileName }">
+							</div>
+						</div>
+					</c:forEach>
+					
+					<div class="form-group">
+					<label for="input4">이미지 파일</label>
+					<input type="file" class="form-control-file" id="input4" name="files" accept="image/*" multiple>
+				</div>
+					
 					<div class="form-group">
 						<label for="input3">작성자</label> <input type="text" class="form-control" id="input3" value="${board.nickName }" readonly>
 					</div>
