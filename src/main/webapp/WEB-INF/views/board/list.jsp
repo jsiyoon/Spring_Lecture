@@ -37,6 +37,9 @@
 									<a href="get?id=${board.id }">
 										<c:out value="${board.title }" />
 									</a>
+									<c:if test="${board.hasFile }">
+										<i class="far fa-images"></i>
+									</c:if>
 									<c:if test="${board.replyCount > 0 }">
 										<i class="far fa-comments"></i> ${board.replyCount }
 									</c:if>
