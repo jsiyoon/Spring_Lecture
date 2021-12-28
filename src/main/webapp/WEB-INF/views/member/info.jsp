@@ -18,7 +18,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col">
-			<h1 style="text-align: center;">회원 정보</h1>
+			<h1 class="text-center">회원 정보</h1>
 			<form method="post" id="infoForm">
 				<div class="form-group">
 					<label for="input1">아이디</label>
