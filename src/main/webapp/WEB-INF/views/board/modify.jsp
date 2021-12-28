@@ -18,7 +18,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h1 style="text-align: center;">게시물 수정</h1>
+				<h1 class="text-center">게시물 수정</h1>
 				<form id="modifyForm" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="id" value="${board.id }">
 					<div class="form-group">
