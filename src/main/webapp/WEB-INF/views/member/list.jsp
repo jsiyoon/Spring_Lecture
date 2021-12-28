@@ -17,7 +17,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h1 style="text-align: center;">회원 목록</h1>
+				<h1 class="text-center">회원 목록</h1>
 				<table class="table">
 					<thead>
 						<tr>
