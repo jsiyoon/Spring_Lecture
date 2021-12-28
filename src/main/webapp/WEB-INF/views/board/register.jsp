@@ -18,7 +18,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col">
-			<h1 style="text-align: center;">게시물 작성</h1>
+			<h1 class="text-center">게시물 작성</h1>
 			<form method="post" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="input1">제목</label>
