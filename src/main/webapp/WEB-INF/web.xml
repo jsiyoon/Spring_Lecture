@@ -45,4 +45,7 @@
     <url-pattern>/member/info</url-pattern>
     <url-pattern>/board/register</url-pattern>
   </filter-mapping>
+  <listener>
+    <listener-class>org.zerock.listener.AppListener</listener-class>
+  </listener>
 </web-app>
