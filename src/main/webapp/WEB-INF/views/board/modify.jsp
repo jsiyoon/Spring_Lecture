@@ -29,23 +29,23 @@
 						<label for="input2">내용</label>
 						<textarea class="form-control" id="input2" name="content">${board.content}</textarea>
 					</div>
-					
-					<div class="row">
-						<div id="col-12">
-							<label for="">삭제할 파일 선택</label>
-						</div>
-					</div>
 					<c:forEach items="${fileNames }" var="fileName">
-						<div class="row">
-							<div id="col-1 d-flex justify-content-center align-items-center">
-								<input class="form-check-input" type="checkbox" name="removeFile" value="${fileName }">
+						<c:if test="${fileName ne null }">
+							<div class="row">
+								<div id="col-12">
+									<label for="">삭제할 파일 선택</label>
+								</div>
 							</div>
-							<div class="col-11">
-								<img class="img-fluid" src="${staticUrl }/${board.id }/${fileName }" alt="${fileName }">
+							<div class="row">
+								<div id="col-1 d-flex justify-content-center align-items-center">
+									<input class="form-check-input" type="checkbox" name="removeFile" value="${fileName }">
+								</div>
+								<div class="col-11">
+									<img class="img-fluid" src="${staticUrl }/${board.id }/${fileName }" alt="${fileName }">
+								</div>
 							</div>
-						</div>
+						</c:if>
 					</c:forEach>
-					
 					<div class="form-group">
 					<label for="input4">이미지 파일</label>
 					<input type="file" class="form-control-file" id="input4" name="files" accept="image/*" multiple>
